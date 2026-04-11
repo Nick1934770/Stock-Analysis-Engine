@@ -1,6 +1,6 @@
 # Stock Intelligence AI
 
-A hackathon-ready stock analysis web app that provides BUY/SELL/HOLD recommendations powered by sentiment analysis and technical indicators — with live WebSocket updates.
+A stock analysis web app that provides BUY/SELL/HOLD recommendations powered by sentiment analysis and technical indicators — with live WebSocket updates.
 
 ## Quick Start
 
