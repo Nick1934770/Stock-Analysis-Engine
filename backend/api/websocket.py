@@ -69,6 +69,9 @@ async def handle_analysis(websocket: WebSocket, ticker: str):
             momentum=indicators.get("momentum", 0) or 0,
             news=sentiment_result["articles"],
             prices=stock_data.get("prices", []),
+            info=stock_data.get("info_snapshot", {}),
+            rsi=indicators.get("rsi"),
+            ma_signal=indicators.get("ma_signal"),
         )
 
         result = {
@@ -94,6 +97,7 @@ async def handle_analysis(websocket: WebSocket, ticker: str):
             ],
             "prices": stock_data.get("prices", []),
             "explanation": explanation,
+            "info_snapshot": stock_data.get("info_snapshot", {}),
         }
 
         cache.set(ticker, result)

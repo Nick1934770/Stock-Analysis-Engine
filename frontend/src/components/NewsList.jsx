@@ -1,63 +1,52 @@
-const SENTIMENT_STYLES = {
-  positive: {
-    badge: 'bg-green-900/40 text-green-400 border border-green-700/50',
-    dot: 'bg-green-400',
-  },
-  negative: {
-    badge: 'bg-red-900/40 text-red-400 border border-red-700/50',
-    dot: 'bg-red-400',
-  },
-  neutral: {
-    badge: 'bg-gray-700/60 text-gray-400 border border-gray-600/50',
-    dot: 'bg-gray-400',
-  },
+const BORDER = {
+  positive: 'border-l-green-500',
+  negative: 'border-l-red-500',
+  neutral:  'border-l-gray-700',
 }
 
-function SentimentBadge({ sentiment }) {
-  const styles = SENTIMENT_STYLES[sentiment] || SENTIMENT_STYLES.neutral
-  return (
-    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium ${styles.badge}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${styles.dot}`} />
-      {sentiment}
-    </span>
-  )
+const SENTIMENT_TEXT = {
+  positive: 'text-green-500',
+  negative: 'text-red-500',
+  neutral:  'text-gray-600',
 }
 
 function NewsList({ news }) {
   if (!news || news.length === 0) {
     return (
       <div className="card">
-        <p className="label mb-4">News Sentiment</p>
-        <p className="text-gray-500 text-sm">No news articles found.</p>
+        <p className="text-gray-600 text-xs font-mono uppercase tracking-wider mb-4">News Feed</p>
+        <p className="text-gray-600 text-sm">No news articles found.</p>
       </div>
     )
   }
 
   return (
     <div className="card">
-      <p className="label mb-4">News Sentiment</p>
-      <div className="space-y-3">
+      <p className="text-gray-600 text-xs font-mono uppercase tracking-wider mb-4">News Feed</p>
+      <div className="space-y-px">
         {news.map((article, i) => (
           <div
             key={i}
-            className="flex items-start gap-3 p-3 rounded-xl bg-gray-750 border border-gray-700 hover:border-gray-600 transition-colors"
+            className={`flex items-start justify-between gap-4 px-3 py-2.5 border-l-2 ${BORDER[article.sentiment] || BORDER.neutral}
+                        bg-gray-900 hover:bg-gray-800/60 transition-colors`}
           >
-            <span className="text-gray-500 text-xs font-mono mt-0.5 min-w-[1.2rem]">{i + 1}</span>
             <div className="flex-1 min-w-0">
               {article.url ? (
                 <a
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-200 hover:text-white line-clamp-2 leading-snug block mb-2"
+                  className="text-sm text-gray-300 hover:text-white line-clamp-1 leading-snug block"
                 >
                   {article.title}
                 </a>
               ) : (
-                <p className="text-sm text-gray-200 line-clamp-2 leading-snug mb-2">{article.title}</p>
+                <p className="text-sm text-gray-300 line-clamp-1 leading-snug">{article.title}</p>
               )}
-              <SentimentBadge sentiment={article.sentiment} />
             </div>
+            <span className={`text-xs font-mono shrink-0 mt-0.5 ${SENTIMENT_TEXT[article.sentiment] || SENTIMENT_TEXT.neutral}`}>
+              {article.sentiment}
+            </span>
           </div>
         ))}
       </div>

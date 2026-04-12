@@ -5,7 +5,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ReferenceLine,
   ResponsiveContainer,
 } from 'recharts'
 
@@ -60,7 +59,7 @@ function PriceChart({ prices }) {
   return (
     <div className="card">
       <div className="flex items-start justify-between mb-4">
-        <p className="label">30-Day Price Chart</p>
+        <p className="text-gray-600 text-xs font-mono uppercase tracking-wider">30-Day Price</p>
         <div className="text-right">
           <p className="text-white font-semibold">${lastClose.toFixed(2)}</p>
           <p className={`text-xs font-medium ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
@@ -69,11 +68,11 @@ function PriceChart({ prices }) {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={220}>
+      <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="priceGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
+              <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.12} />
               <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -94,7 +93,6 @@ function PriceChart({ prices }) {
             width={52}
           />
           <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={firstClose} stroke="#4B5563" strokeDasharray="4 4" strokeWidth={1} />
           <Line
             type="monotone"
             dataKey="close"
